@@ -1,5 +1,5 @@
 <template>
-  <div id="chat">
+  <div id="chat" class="chat-container">
     <user-list :online-users="onlineUsers" />
     <chat-box />
   </div>
@@ -33,7 +33,7 @@ export default {
       console.log("连接成功")
     }
   },methods:{
-    init(){
+    sendMessage(){
 
     }
   }
@@ -41,10 +41,10 @@ export default {
 </script>
 
 <style>
-chat{
+.chat-container{
   display: flex;
   height: 100vh;
-  justify-content: center;
-  align-items: center;
+
 }
+
 </style>

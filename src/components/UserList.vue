@@ -3,9 +3,9 @@
       <div class="user-list">
         <h3>在线用户</h3>
         <ul>
-          <li v-for="user in onlineUsers" :key="user.id">
+          <li v-for="user in onlineUsers" :key="user.id" @click="sendUser(user.name)">
             <div class="user-avatar">
-              <img :src="user.avatar" :alt="user.name" />
+<!--              <img :src="user.avatar" :alt="user.name" />-->
             </div>
             <div class="user-info">
               <span class="user-name">{{ user.name }}</span>
@@ -14,22 +14,7 @@
           </li>
         </ul>
       </div>
-      <div class="chat-window">
-        <div class="chat-header">
-          {{ chatPartnerName }}
-        </div>
-        <div class="chat-messages">
-          <div v-for="message in messages" :key="message.id" :class="{'message-right': message.isMe, 'message-left': !message.isMe}">
-            <div class="message-content">
-              {{ message.content }}
-            </div>
-          </div>
-        </div>
-        <div class="chat-input">
-          <input v-model="newMessage" placeholder="输入消息..." />
-          <button @click="sendMessage">发送</button>
-        </div>
-      </div>
+
     </div>
   </template>
   
@@ -44,16 +29,11 @@
       };
     },props:['onlineUsers'],
     methods: {
-      sendMessage() {
-        if (this.newMessage.trim() !== '') {
-          this.messages.push({
-            id: Date.now(),
-            content: this.newMessage.trim(),
-            isMe: true
-          });
-          this.newMessage = '';
+        //传递用户名到聊天框
+        sendUser(username){
+            this.$bus.$emit('sendUsername',username)
         }
-      }
+
     }
   }
   </script>
@@ -62,12 +42,13 @@
   .chat-container {
     display: flex;
     height: 100vh;
+
   }
   
   .user-list {
     width: 200px;
     background-color: #f2f2f2;
-    padding: 10px;
+    /*padding: 10px;*/
   }
   
   .user-list h3 {
@@ -131,7 +112,7 @@
   .user-status-offline {
     background-color: #ccc;
   }
-  
+
   .chat-window {
     flex: 1;
     display: flex;

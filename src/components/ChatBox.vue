@@ -36,7 +36,15 @@
           });
           this.newMessage = '';
         }
-      }
+      },
+
+
+    },mounted() {
+      //接收来自UserList的username
+      this.$bus.$on('sendUsername',(username)=>{
+        console.log(username)
+        this.chatPartnerName = username
+      })
     }
   }
   </script>
@@ -46,53 +54,54 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    width: 800px;
   }
-  
+
   .chat-header {
     padding: 10px;
     background-color: #f2f2f2;
     font-weight: bold;
     text-align: center;
   }
-  
+
   .chat-messages {
     flex: 1;
     overflow-y: auto;
     padding: 10px;
   }
-  
+
   .message-right {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
   }
-  
+
   .message-left {
     display: flex;
     justify-content: flex-start;
     margin-bottom: 10px;
   }
-  
+
   .message-content {
     max-width: 70%;
     padding: 10px;
     border-radius: 5px;
     background-color: #dcf8c6;
   }
-  
+
   .chat-input {
     display: flex;
     align-items: center;
     padding: 10px;
   }
-  
+
   input {
     flex: 1;
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
   }
-  
+
   button {
     padding: 5px 10px;
     border-radius: 5px;
